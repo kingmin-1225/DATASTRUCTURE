@@ -1,6 +1,6 @@
 class Stack:
   class _Node:
-    __slots__ = '_element', '_next'
+    __slots__ = '_element', '_next' # __slots__: 클래스가 가진 인스턴스를 고정시킴(메모리 절약)
     def __init__(self, e, next):
       self._element = e
       self._next = next
