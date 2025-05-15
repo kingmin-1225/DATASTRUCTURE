@@ -20,7 +20,7 @@ class HeapPriorityQueue(PriorityQueueBase):
     parent = self._parent(j)
     if j > 0 and self._data[j] < self._data[parent]:
       self._swap(parent, j)
-      self._swap(parent)
+      self._upheap(parent)
   
   def _downheap(self, j):
     if self._has_left(j):

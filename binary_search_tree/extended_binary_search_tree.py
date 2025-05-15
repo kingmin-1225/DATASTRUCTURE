@@ -97,34 +97,3 @@ class BST:
 
   def print_keys(self):
     return self._inorder(self._root)
-
-from random import randint
-
-bst = BST()
-
-checking = []
-for _ in range(1000):
-  num = randint(1, 10000)
-  bst[num] = 1
-  if num not in checking:
-    checking.append(num) 
-checking.sort()
-tree_list = bst.print_keys()
-print(tree_list)
-print(checking)
-print(len(tree_list))
-print("__setitem__ : IT'S WORKING" if checking == tree_list else "IT'S FAILED")
-print("------------------------------------------------------------------------------------------------------------------------")
-
-for _ in range(1000):
-  num = randint(1, 10000)
-  del bst[num]
-  if num in checking:
-    checking.remove(num)
-
-checking.sort()
-tree_list = bst.print_keys()
-print(tree_list)
-print(checking)
-print(len(tree_list))
-print("__delitem__ : IT'S WORKING" if checking == tree_list else "IT'S FAILED")

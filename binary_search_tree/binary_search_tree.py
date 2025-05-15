@@ -54,27 +54,3 @@ class BST:
   
   def delete(self, e):
     self.root = self._remove(self.root, e)
-
-from random import randint
-
-
-tree = BST()
-
-checking = []
-for _ in range(10000):
-  num = randint(1, 10000000)
-  tree.add(num)
-  checking.append(num)
-
-for _ in range(10000):
-  num = randint(1, 100000)
-  tree.delete(num)
-  if num in checking:
-    checking.remove(num)
-
-
-checking.sort()
-tree_list = tree.print_nodes()
-print(tree_list)
-print(len(tree_list))
-print("IT'S WORKING" if checking == tree_list else "IT'S FAILED")
