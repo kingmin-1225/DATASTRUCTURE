@@ -9,7 +9,7 @@ class AdaptableHeapPriorityQueue(HeapPriorityQueue):
       self._index = j
   
   def _swap(self, i, j):
-    super._swap(i, j)
+    super()._swap(i, j)
     self._data[i]._index = i
     self._data[j].index = j
   
