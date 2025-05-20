@@ -66,29 +66,35 @@ class BST:
   
   def __delitem__(self, k):
     if self.is_empty():
-      return
-    node = self._subtree_search(self._root, k)
-    if node._key == k:
-      self._size -= 1
+      raise Exception('Tree is empty')
+    node = self._search(self._root, k)
+    if node._key != k:
+      raise KeyError('Key Error ' + repr(k))
+    self._size -= 1
+    if node._left and node._right:
+      walk = node._left
+      while walk._right:
+        walk = walk._right
+      node._key = walk._key
+      node._value = walk._value
+      parent = walk._parent
+      if parent._left == walk:
+        parent._left = walk._left
+      else:
+        parent._right = walk._left
+      walk._left._parent = parent
+    else:
       parent = node._parent
-      if not (node._left and node._right): ## 자식노드 한 개 이하
-        child = node._left if node._left else node._right
-        if parent: ## 제거 대상 노드가 루트가 아닐 경우
-          if node == parent._left:
-            parent._left = child
-          else:
-            parent._right = child
-        else: ## 제거 대상 노드가 루트일 경우
-          self._root = child
-        if child:
-          child._parent = parent
-      else: ## 자식노드 두 개
-        walk = node._left
-        while walk._right is not None:
-          walk = walk._right
-        self.__delitem__(walk._key)
-        node._key = walk._key
-        node._value = walk._value
+      child = node._left if node._left else node._right
+      if parent: # 삭제한 노드가 루트가 아님
+        if parent._left == node:
+          parent._left = child
+        else:
+          parent._right = child
+      else: # 삭제한 노드가 루트임
+        self._root = child
+      if child:
+        child._parent = parent
   
   def _inorder(self, node):
     if node is None:
@@ -97,3 +103,11 @@ class BST:
 
   def print_keys(self):
     return self._inorder(self._root)
+
+from random import randint
+bst = BST()
+for _ in range(1000):
+  num = randint(1, 10000)
+  bst[num] = 1
+ll = bst.print_keys()
+print(ll == sorted(ll))
