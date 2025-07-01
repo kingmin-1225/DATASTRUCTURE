@@ -11,6 +11,9 @@ class Queue:
   def is_empty(self):
     return self._size == 0
   
+  def __len__(self):
+    return self._size
+  
   def top(self):
     if self.is_empty():
       raise Exception("Queue is Empty")

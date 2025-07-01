@@ -212,6 +212,18 @@ class RedBlackTree:
     return self._inorder(node._left) + [node._key] + self._inorder(node._right)
   def print_keys(self):
     return self._inorder(self._root)
+  
+  def test(self, node):
+    if node is None:
+      return 
+    if not node._red:
+      return self.test(node._right if node._right else None), self.test(node._left if node._left else None)
+    else:
+      if node._left and node._left._red:
+        raise Exception("Two red")
+      if node._right and node._right._red:
+        raise Exception("Two red")
+      return self.test(node._right if node._right else None), self.test(node._left if node._left else None)
 
 rbt = RedBlackTree()
 from random import randint
@@ -228,3 +240,4 @@ for i in range(len(keys)//2):
 ll = rbt.print_keys()
 print(len(ll))
 print(ll == sorted(ll))
+rbt.test(rbt._root)
